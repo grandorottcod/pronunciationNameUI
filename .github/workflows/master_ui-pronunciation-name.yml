@@ -25,7 +25,9 @@ jobs:
         run: |
           npm install
           npm run build --prod
-        working-directory: .  
+        working-directory: . 
+      - name: Zip artifact for deployment
+        run: zip pronunciationNameUI.zip ./* -r
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
@@ -45,6 +47,8 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: pronunciationNameUI
+      - name: unzip artifact for deployment
+        run: unzip pronunciationNameUI.zip      
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
@@ -52,4 +56,4 @@ jobs:
         with:
           app-name: 'ui-pronunciation-name'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F883DBB929AF4D7D86B9ABB0C9E7BA67 }}
-          package: ./dist/pronunciationNameUI
+          package: .
