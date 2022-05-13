@@ -1,7 +1,9 @@
 <p>fill out information and record name</p>
 email: <input type="text" [(ngModel)] = 'email'>
+uid: <input type="text" [(ngModel)] = 'uid'>
+name: <input type="text" [(ngModel)] = 'name'>
 <br>
 <button  (click)="initiateRecording()">record</button>
 <button  (click)="stopRecording()">stop</button>
-<button mat-button>play</button>
-<button mat-button>submit</button>
+<button mat-button (click)="play()">play</button>
+<button mat-button (click)="submit()">submit</button>

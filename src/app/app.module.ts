@@ -7,6 +7,7 @@ import { LookupNameComponent } from './lookup-name/lookup-name.component';
 import { RecordNameComponent } from './record-name/record-name.component';
 import {FormsModule} from "@angular/forms"
 import { NgAudioRecorderModule } from 'ng-audio-recorder';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { NgAudioRecorderModule } from 'ng-audio-recorder';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    NgAudioRecorderModule
+    NgAudioRecorderModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

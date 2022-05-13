@@ -6,6 +6,8 @@ import { NgAudioRecorderService, OutputFormat } from 'ng-audio-recorder';
 })
 export class AudioRecordingService {
 
+  blob: any;
+
   constructor(private audioRecorderService: NgAudioRecorderService) {
     
     this.audioRecorderService.recorderError.subscribe(recorderErrorCase => {
@@ -18,11 +20,14 @@ export class AudioRecordingService {
   }
 
   stopRecording() {
-     this.audioRecorderService.stopRecording(OutputFormat.WEBM_BLOB_URL).then((output) => {
-       let audio = new Audio(output as string)
-       audio.play();
+     this.audioRecorderService.stopRecording(OutputFormat.WEBM_BLOB).then((output) => {
+       this.blob = output;
      }).catch(errrorCase => {
          // Handle Error
      });
+  }
+
+  getblob(){
+    return this.blob;
   }
 }
