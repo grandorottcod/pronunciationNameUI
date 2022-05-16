@@ -8,6 +8,7 @@ import { RecordNameComponent } from './record-name/record-name.component';
 import {FormsModule} from "@angular/forms"
 import { NgAudioRecorderModule } from 'ng-audio-recorder';
 import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';  
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     FormsModule,
     NgAudioRecorderModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

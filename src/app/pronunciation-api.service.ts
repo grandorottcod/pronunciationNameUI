@@ -24,6 +24,5 @@ export class PronunciationAPIService {
 
   saveEmployeeNameAlternate(formData: any) : Observable<any>{
     return this.httpClient.post(this.saveEmployeeUrl, formData);
-
   }
 }

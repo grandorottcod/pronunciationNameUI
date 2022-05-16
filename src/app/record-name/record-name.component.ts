@@ -17,10 +17,11 @@ export class RecordNameComponent implements OnInit {
   audioRecording: AudioRecordingService;
   blobOutgoing!: FormData;
   employee!: Employee;
+  success: boolean;
 
   constructor(audioRecording: AudioRecordingService,
     private pronunciationAPIService: PronunciationAPIService) 
-    {this.audioRecording = audioRecording; }
+    {this.audioRecording = audioRecording; this.success = false; }
 
   initiateRecording(){
       this.audioRecording.startRecording();
@@ -34,28 +35,42 @@ export class RecordNameComponent implements OnInit {
     console.log("test");
   }
 
-  submit(){
+  async submit(){
         const blob = this.audioRecording.getblob();
-        const typeBlob = blob as Blob;
-        console.log(typeBlob);
         this.blobOutgoing = new FormData(); 
-        this.blobOutgoing.append('file', blob);
+        let blobString = await this.blobToBase64(blob);
+        this.blobOutgoing.append('blob', blobString);
         this.blobOutgoing.append('name', this.name);
         this.blobOutgoing.append('email', this.email);
         this.blobOutgoing.append('uid', this.uid);
         this.pronunciationAPIService.saveEmployeeNameAlternate(this.blobOutgoing)
         .subscribe((response: any) => {
-               console.log(response);
+               if(response == "200"){
+                 this.success = true;
+               }
         })
+
+
+
+
 
   }
 
-  play(){
+   play(){
     const blob = this.audioRecording.getblob();
     const audioURL = URL.createObjectURL(blob);
     const audio = new Audio(audioURL);
     audio.play();
-    
+  }
+
+   
+
+    blobToBase64(blob: any): Promise<any> {
+    return new Promise((resolve, _) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.readAsDataURL(blob);
+    });
   }
 
   ngOnInit(): void {

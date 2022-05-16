@@ -16,5 +16,5 @@ export interface Employee{
    email: string;
    blob: string;
    blobOutgoing: FormData | null; 
-   blobByte: Array<any>;
+   blobByte: string;
 }
